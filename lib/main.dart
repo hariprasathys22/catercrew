@@ -1,4 +1,4 @@
-import 'package:catercrews/screens/OnBoarding.dart';
+import 'package:catercrews/screens/on_boarding.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromRGBO(255, 249, 245, 1),
+        scaffoldBackgroundColor: Color.fromRGBO(254, 248, 245, 1),
         useMaterial3: true,
       ),
       home: const OnBoarding(),

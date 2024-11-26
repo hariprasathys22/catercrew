@@ -1,5 +1,7 @@
 import 'package:catercrews/data/OnBoardData.dart';
-import 'package:catercrews/widgets/PageContentWidget.dart';
+import 'package:catercrews/screens/login_page.dart';
+import 'package:catercrews/widgets/custom_elevated_button.dart';
+import 'package:catercrews/widgets/page_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -13,13 +15,13 @@ class OnBoarding extends StatefulWidget {
 class _OnBoardingState extends State<OnBoarding> {
   final PageController _pageController = PageController();
   int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
+    MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 249, 245, 1),
+        backgroundColor: const Color.fromRGBO(255, 249, 245, 1),
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -90,13 +92,22 @@ class _OnBoardingState extends State<OnBoarding> {
                     ),
                   ),
                 if (currentPage > 0) const SizedBox(width: 16),
+
+                // Use the CustomElevatedButton here
                 Expanded(
                   flex: currentPage > 0 ? 1 : 2,
-                  child: ElevatedButton(
+                  child: CustomElevatedButton(
+                    buttonText: currentPage == pages.length - 1
+                        ? 'Get Started'
+                        : 'Next', // Pass custom text
                     onPressed: () {
                       if (currentPage == pages.length - 1) {
-                        print("Onboarding finished!");
-                        // Navigate to another screen or close the onboarding
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        );
                       } else {
                         _pageController.nextPage(
                           duration: const Duration(milliseconds: 300),
@@ -104,23 +115,12 @@ class _OnBoardingState extends State<OnBoarding> {
                         );
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color.fromRGBO(241, 110, 0, 1.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                    ),
-                    child: Text(
-                      currentPage == pages.length - 1 ? 'Get Started' : 'Next',
-                    ),
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 110),
+          const SizedBox(height: 110),
         ],
       ),
     );
